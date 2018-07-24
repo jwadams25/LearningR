@@ -12,11 +12,9 @@ Load Packages and Libraries
 
 There are specific packages others have built that allow you to do complex tasks with little effort. When you first use R, be sure to install the necessary packages. After you install them, you need to be sure to load the libraries for each of the packages that you will use for your analysis.
 
-For this class, we will use a number of different packages but we will start with the following packages.
+For this class, we will use a number of different packages but we will start with the following package.
 
 -   tidyverse: This contains, among other things, the packages ggplot, which allows you to make visualizations and dplyr, which will enable you to wrangle your data frame.
-
--   dslabs: This is a package that will give you access to a few datasets that we will use during instruction.
 
 ``` r
 library(tidyverse)
