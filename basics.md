@@ -5,7 +5,7 @@ John Adams
 The Basics - Introduction
 =========================
 
-This document will contain tips on the basics of working with R and Rstudio along with a few of the packages that will make your coding life more manageable.
+This document contains tips on the basics of working with R and Rstudio along with a few of the packages that will make your coding life more manageable.
 
 Load Packages and Libraries
 ---------------------------

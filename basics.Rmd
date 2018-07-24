@@ -6,7 +6,7 @@ output: github_document
 
 # The Basics - Introduction
 
-This document will contain tips on the basics of working with R and Rstudio along with a few of the packages that will make your coding life more manageable. 
+This document contains tips on the basics of working with R and Rstudio along with a few of the packages that will make your coding life more manageable. 
 
 ##Load Packages and Libraries
 
@@ -16,7 +16,7 @@ For this class, we will use a number of different packages but we will start wit
 
 - tidyverse: This contains, among other things, the packages ggplot, which allows you to make visualizations and dplyr, which will enable you to wrangle your data frame. 
 
-```{r install packages}
+```{r install package and load library}
 library(tidyverse)
 ```
 
