@@ -70,14 +70,28 @@ ss_price
 
 ### Categorical Variables
 
-```{r categorical variables}
+Here is an example that shows how to make a table showing the number of observations for each category in one categorical variable. 
+
+```{r categorical variable }
 cut_count <- diamonds %>%
             group_by(cut) %>%
             summarize(count = n()) %>%
             arrange(desc(count))
 cut_count
-            
 ```
+
+Now let's make a two-way table. 
+
+```{r two way table}
+
+totals <- diamonds %>%
+            group_by(color, cut) %>%
+            summarize(num = n()) %>%
+            spread(color, num)
+totals
+
+```
+
 
 ### Group by Categorical and Then Summarize A Quantitative Variable
 
