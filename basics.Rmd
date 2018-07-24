@@ -1,8 +1,7 @@
 ---
 title: "The Basics"
 author: "John Adams"
-output: html_document
-jwadams25
+output: github_document
 ---
 
 # The Basics - Introduction
@@ -21,7 +20,6 @@ For this class, we will use a number of different packages but we will start wit
 
 ```{r install packages}
 library(tidyverse)
-library(dslabs)
 ```
 
 ## Viewing Your Data
@@ -46,7 +44,7 @@ head(fourcs_price)
 
 ## Using the Filter Function
 
-Often times you don't want to focus on a certain subset your your dataset. Using this diamonds dataset, for example, we may want to just examine the ideal cut or the diamonds below a certain price. The Filter function allows us to take out the subset of data we want.
+Often times you don't want to focus on a certain subset of your dataset. Using this diamonds dataset, for example, we may want to just examine the ideal cut or the diamonds below a certain price. The Filter function allows us to take out the subset of data we want.
 
 ```{r Filter}
 
@@ -62,13 +60,13 @@ caratltwo
 ## Summary Statistics 
 Calculating summary statistics is always a crucial part of EDA. The summarize command helps you do just that.
 
-
 ### Quantitative Variables 
 This code will allow you to find the mean, median, standard_deviation, and IQR of a specific variable.
 ```{r summary statistics}
-ss_carat <- diamonds %>% 
-          summarize(avg = mean(carat), med = median(carat), standard_dev = sd(carat), iqr = IQR(carat))
-ss_carat
+ss_price <- diamonds %>% 
+          summarize(avg = mean(price), med = median(price), standard_dev = sd(price), 
+                    iqr = IQR(price))
+ss_price
 
 ```
 
