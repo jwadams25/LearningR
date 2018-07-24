@@ -1,0 +1,161 @@
+---
+title: "Visualizations for EDA"
+author: "John Adams"
+output: github_document
+---
+
+# Visualizations with ggplot
+
+An essential aspect of exploratory data analysis is visualizing your data. It allows you to draw conclusions more easily. This document will walk through a few visualizations you can create to see the story your data tells. 
+
+## Load Tidyverse Library
+```{r tidyverse}
+library(tidyverse)
+```
+
+## Histogram
+
+A histogram is a great way of seeing the distribution of quantitative data. Let's start by analyzing the distribution of the price of diamonds in the diamonds dataset.  
+
+```{r histogram distribution of prices}
+price_hist <- diamonds %>%
+            ggplot(aes(price)) +
+            geom_histogram()
+price_hist
+```
+
+Now let's add some labels to your axes and give the histogram a title. To start, I copied and pasted the code from above. 
+
+```{r histogram distribution of price with labels}
+price_hist <- diamonds %>%
+            ggplot(aes(price)) +
+            geom_histogram() +
+            labs(x = "Price", y = "Number of Diamonds", title = "Price of Diamonds")
+price_hist
+```
+
+You'll see that a message popped up that says in part "Pick a better value with 'binwidth'" Let's make that change by adding in bindwith = 500. Reference data visualization principles to make an appropriate binwidth for your analysis. 
+
+```{r histogram distribution of prices new bins}
+price_hist <- diamonds %>%
+            ggplot(aes(price)) +
+            geom_histogram(binwidth = 500) +
+            labs(x = "Price", y = "Number of Diamonds", title = "Price of Diamonds")
+price_hist
+```
+
+Now let's change the color and outline of the bars. 
+
+```{r histogram distribution of prices style changes}
+price_hist <- diamonds %>%
+            ggplot(aes(price)) +
+            geom_histogram(binwidth = 500, color = "white", fill = "blue") +
+            labs(x = "Price", y = "Number of Diamonds", title = "Price of Diamonds")
+price_hist
+```
+
+To finish let's set the scales of the x and y axes and add in a line for the median (because it is skewed to the right)
+
+```{r histogram distribution of prices scales and median line}
+price_hist <- diamonds %>%
+            ggplot(aes(price)) +
+            geom_histogram(binwidth = 500, color = "white", fill = "blue") +
+            labs(x = "Price", y = "Number of Diamonds", title = "Price of Diamonds") +
+            scale_x_continuous(limits = c(0, 20000),
+                     breaks = seq(0, 20000, 2500))+
+            scale_y_continuous(limits = c(0, 10000),
+                     breaks = seq(0, 10000, 1000)) +
+            geom_vline(aes(xintercept = median(price)))
+           
+price_hist
+            
+```
+
+## Density Curve
+
+There are times when a density curve will more clearly show the distribution of quantitative data. In this case, it would make sense because we have a large range of prices and a lot of bins. Let's say you are going through your EDA and create a histogram first and realize a density curve would be a better visualization, copy and paste your code, change the name, change geom_histogram to geom_density, take out the scales code, and change the y-axis label.
+
+```{r Density Curves distribution of prices}
+price_den <- diamonds %>%
+            ggplot(aes(price)) +
+            geom_density(color = "white", fill = "blue", alpha = 0.5) +
+            labs(x = "Price", y = "Number of Diamonds", title = "Price of Diamonds") +
+            geom_vline(aes(xintercept = median(price)))
+price_den
+            
+```
+
+## Box Plots
+
+Box plots are great for comparing distributions. Let's use them to compare the prices of each color diamond. 
+
+```{r Box Plots to Compare Distributions}
+pcol_boxes <- diamonds %>%
+            ggplot(aes(x = color , y = price)) +
+            geom_boxplot()
+pcol_boxes
+```
+
+Before adding and style changes to this visualization, we want to make it easier for our reader to make conclusions. Therefore, we want to reorder these boxes from the greatest median to the least.
+
+```{r Box Plots to Compare Distributions reorder}
+pcol_boxes <- diamonds %>%
+            ggplot(aes(x = reorder(color, price, FUN = median) , y = price)) +
+            geom_boxplot()
+pcol_boxes
+```
+
+Typically box plots are easier to read when they are stacked on top of one another. Use coord_flip to do that. Let's also add in labels while we are here. You will do that using the labs code like you did when making the histograms and density curves. 
+
+```{r Box Plots to Compare Distributions add titles and flip}
+pcol_boxes <- diamonds %>%
+            ggplot(aes(x = reorder(color, price, FUN = median) , y = price)) +
+            geom_boxplot() +
+            labs(x = "Color", y = "Price", 
+                 title = "Distribution of Diamond Prices by Color") +
+            coord_flip()
+pcol_boxes
+```
+
+## Bar Plots 
+
+We'll use the bar plot to visualize categorical data. In this first example, we will look at the marginal distribution of color. In other words, the heights of the bars will represent the number of diamonds that are each color. 
+
+```{r Bar plot basic}
+
+colbar <- diamonds %>%
+          ggplot(aes(x = color)) +
+          geom_bar()
+colbar
+```
+
+Again, we want these to be in order from greatest to least to tell the story in the most precise possible way. 
+
+Let's start by making a table using the skills we learned in previous activities to see the number of diamonds for each color. After, we will use that data frame to make our bar plot. 
+
+```{r Bar plot ordering bars}
+
+color_count <- diamonds %>%
+            group_by(color) %>%
+            summarize(count = n()) %>%
+            arrange(desc(count))
+color_count
+
+colbar <- color_count %>%
+          ggplot(aes(x = reorder(color, count), y = count)) +
+          geom_bar(stat = 'identity')
+colbar
+```
+
+## 100% Stacked Bar Graph
+
+When you want to examine conditional distributions, a good option is a 100% stacked bar graph. For this example, we want to look at the proportion of different cuts for each color diamond. i.e., You will be able to answer the question, "What proportion of diamonds that have a G color is an ideal cut?"
+It's important to remember that you use this when studying two categorical variables.
+
+```{r 100 stacked}
+colcut <- diamonds %>%
+            ggplot(aes(color, fill = cut)) +
+            geom_bar(position = "fill") +
+            labs(x = "Color of Diamond", y = "Proportion")
+colcut
+```
