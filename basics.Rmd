@@ -2,6 +2,7 @@
 title: "The Basics"
 author: "John Adams"
 output: html_document
+jwadams25
 ---
 
 # The Basics - Introduction
@@ -43,8 +44,24 @@ fourcs_price <- diamonds %>%
 head(fourcs_price)
 ```
 
+## Using the Filter Function
+
+Often times you don't want to focus on a certain subset your your dataset. Using this diamonds dataset, for example, we may want to just examine the ideal cut or the diamonds below a certain price. The Filter function allows us to take out the subset of data we want.
+
+```{r Filter}
+
+ideals <- diamonds %>%
+         filter(cut == "Ideal")
+ideals
+
+caratltwo <- diamonds %>%
+          filter(carat <= 2)
+caratltwo
+```
+
 ## Summary Statistics 
 Calculating summary statistics is always a crucial part of EDA. The summarize command helps you do just that.
+
 
 ### Quantitative Variables 
 This code will allow you to find the mean, median, standard_deviation, and IQR of a specific variable.
