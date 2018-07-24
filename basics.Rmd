@@ -1,0 +1,79 @@
+---
+title: "The Basics"
+author: "John Adams"
+output: html_document
+---
+
+# The Basics - Introduction
+
+This document will contain tips on the basics of working with R and Rstudio along with a few of the packages that will make your coding life more manageable. 
+
+##Load Packages and Libraries
+
+There are specific packages others have built that allow you to do complex tasks with little effort. When you first use R, be sure to install the necessary packages. After you install them, you need to be sure to load the libraries for each of the packages that you will use for your analysis.   
+
+For this class, we will use a number of different packages but we will start with the following packages. 
+
+- tidyverse: This contains, among other things, the packages ggplot, which allows you to make visualizations and dplyr, which will enable you to wrangle your data frame. 
+
+- dslabs: This is a package that will give you access to a few datasets that we will use during instruction.
+
+```{r install packages}
+library(tidyverse)
+library(dslabs)
+```
+
+## Viewing Your Data
+
+This code will allow you to see the variables and the first few observations. The default is to show six observations. To change the number of rows that appear, add a comma, and then the number of rows you want to show up.
+
+```{r Viewing your data}
+head(diamonds)
+head(diamonds, 10)
+```
+
+## Using the Select Function
+This function is particularly helpful when you have a lot of variables in your dataset. If, for example, you had 50 variables, it would be hard to focus on the few variables you want to analyze. The select function allows you to create a new data frame that includes only the variables you want.
+
+The diamonds dataset has ten variables. Let's make a new data frame that only includes cut, clarity, carat, color and the price.
+```{r using the select function}
+
+fourcs_price <- diamonds %>%
+                select(carat, cut, color, clarity, price)
+head(fourcs_price)
+```
+
+## Summary Statistics 
+Calculating summary statistics is always a crucial part of EDA. The summarize command helps you do just that.
+
+### Quantitative Variables 
+This code will allow you to find the mean, median, standard_deviation, and IQR of a specific variable.
+```{r summary statistics}
+ss_carat <- diamonds %>% 
+          summarize(avg = mean(carat), med = median(carat), standard_dev = sd(carat), iqr = IQR(carat))
+ss_carat
+
+```
+
+### Categorical Variables
+
+```{r categorical variables}
+cut_count <- diamonds %>%
+            group_by(cut) %>%
+            summarize(count = n()) %>%
+            arrange(desc(count))
+cut_count
+            
+```
+
+### Group by Categorical and Then Summarize A Quantitative Variable
+
+```{r Group by}
+ss_caratcut <- diamonds %>% 
+          group_by(cut) %>%
+          summarize(avg = mean(carat), med = median(carat), standard_dev = sd(carat), iqr = IQR(carat))
+ss_caratcut
+```
+
+
+
