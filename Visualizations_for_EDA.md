@@ -129,7 +129,7 @@ pcol_boxes
 
 ![](Visualizations_for_EDA_files/figure-markdown_github/Box%20Plots%20to%20Compare%20Distributions-1.png)
 
-Before adding and style changes to this visualization, we want to make it easier for our reader to make conclusions. Therefore, we want to reorder these boxes from the greatest median to the least.
+Before adding any style changes to this visualization, we want to make it easier for our reader to make conclusions. Therefore, we want to reorder these boxes from the greatest median to the least.
 
 ``` r
 pcol_boxes <- diamonds %>%
@@ -168,7 +168,7 @@ colbar
 
 ![](Visualizations_for_EDA_files/figure-markdown_github/Bar%20plot%20basic-1.png)
 
-Again, we want these to be in order from greatest to least to tell the story in the most precise possible way.
+Again, we want these to be in order from least to greatest to tell the story in the most precise possible way.
 
 Let's start by making a table using the skills we learned in previous activities to see the number of diamonds for each color. After, we will use that data frame to make our bar plot.
 
