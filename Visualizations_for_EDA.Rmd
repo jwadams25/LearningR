@@ -9,7 +9,7 @@ output: github_document
 An essential aspect of exploratory data analysis is visualizing your data. It allows you to draw conclusions more easily. This document will walk through a few visualizations you can create to see the story your data tells. 
 
 ## Load Tidyverse Library
-```{r tidyverse}
+```{r tidyverse, warning=FALSE}
 library(tidyverse)
 ```
 
