@@ -79,7 +79,7 @@ sslarea
 ##Summary Statistics for Price and Living Area 
 ```{r price and living area summary stats}
 ss_area_price <- NAME_OF_DATASET %>%
-                  select(QUANTITATIVE_VARIABLE, QUANTITATIVE_VARIABLE) %>%
+                  select(QUANTITATIVE_VARIABLE1, QUANTITATIVE_VARIABLE2) %>%
                   skim()
 ss_area_price
 ```
@@ -99,7 +99,7 @@ pvsa <- NAME_OF_DATASET %>%
           labs(title ="Main Title", x = "Independent Variable", y = "Dependent Variable") +
           scale_y_continuous(limits = c(0, 800000),
                      breaks = seq(0, 800000, 250000))
-
+pvsa
 ```
 
 ## Creating the Model
