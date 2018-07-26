@@ -1,0 +1,140 @@
+---
+title: "Zillow Exploratory Data Analysis Worksheet"
+author: "John Adams"
+output: github_document
+---
+#Zillow Exploratory Data Analysis Worksheet
+
+```{r load the tidyverse library}
+library(tidyverse)
+library(skimr)
+```
+
+# Exploring the Data
+
+Use this code to help answer questions in the Exploring the Data section of your worksheet
+
+```{r viewing the data}
+#after you run this code be sure to click the arrow to see all variables
+head(NAME_OF_DATASET)
+
+```
+
+
+# Visualize the Data
+
+To begin, let's explore some distributions of both price and living area. As you have learned, a historgram is a great option. 
+
+### Create a histogram showing the distribution of Price
+
+```{r Price histogram}
+p_hist <- NAME_OF_DATASET %>%
+  ggplot(aes(QUANTITATIVE_VARIABLE)) +
+  geom_histogram(binwidth = NUMBER, fill = "navy", color = "black") +
+  labs(title = "Distribution of House Prices", x = "X-Axis Title", y = "Y-Axis Title") +
+  scale_x_continuous(limits = c(0, 800000),
+                   breaks = seq(0, 800000, 50000))
+p_hist
+```
+
+## Create a histogram showing the distribution of Living Area
+
+```{r Living Area Histogram}
+la_hist <- NAME_OF_DATASET %>%
+          ggplot(aes(QUANTITATIVE_VARIABLE)) +
+  geom_histogram(binwidth = NUMBER, fill = "red", color = "black") +
+  labs(title =" Distribution of Living Areas", x = "X-Axis Title", 
+       y = "y-Axis Title") +
+  scale_x_continuous(limits = c(0, 5600),
+                     breaks = seq(0, 5600, 200)) +
+  scale_y_continuous(limits = c(0, 300),
+                     breaks = seq(0, 300, 50))
+la_hist
+```
+
+# Summary statistics for histograms 
+
+Let's now look at the summary statistics for the quantitative variables, Price and living area, displayed in the histograms.
+
+##Summary Statistics for Price
+```{r Price Summary Stats}
+
+ssprice <- NAME_OF_DATASET %>% 
+          summarize(avg = mean(QUANTITATIVE_VARIABLE), med = median(QUANTITATIVE_VARIABLE), 
+                    standard_dev = sd(QUANTITATIVE_VARIABLE), 
+                    iqr = IQR(QUANTITATIVE_VARIABLE))
+ssprice
+```
+
+##Summary Statistics for Living Area
+```{r Living Area Summary Statistics}
+sslarea <- NAME_OF_DATASET %>% 
+          summarize(avg = mean(QUANTITATIVE_VARIABLE), med = median(QUANTITATIVE_VARIABLE), 
+                    standard_dev = sd(QUANTITATIVE_VARIABLE, 
+                                      five_number = fivenum(QUANTITATIVE_VARIABLE)), 
+                    iqr = IQR(QUANTITATIVE_VARIABLE))
+sslarea
+```
+
+##Summary Statistics for Price and Living Area 
+```{r price and living area summary stats}
+ss_area_price <- NAME_OF_DATASET %>%
+                  select(QUANTITATIVE_VARIABLE, QUANTITATIVE_VARIABLE) %>%
+                  skim()
+ss_area_price
+```
+
+# Relationship Between Price and Living Area
+
+##Create a Scatter Plot
+
+Now let's see if there is an association between the price and living area. Create a scatter plot of Price vs Living Area.
+
+```{r scatter plot price vs living area}
+
+pvsa <- NAME_OF_DATASET %>%
+          ggplot(aes(x= IndependentVariable, y = DependentVariable)) +
+          geom_point(alpha = 1) +
+          stat_smooth(method = 'lm') +
+          labs(title ="Main Title", x = "Independent Variable", y = "Dependent Variable") +
+          scale_y_continuous(limits = c(0, 800000),
+                     breaks = seq(0, 800000, 250000))
+
+```
+
+## Creating the Model
+
+Let's now build a linear model to gain more insight into the relationship between Prices and Living Area.
+
+```{r create the model}
+
+
+NAME_YOUR_MODEL <- lm(DependentVariable~IndependentVariable, NAME_OF_DATASET)
+NAME_YOUR_MODEL
+cor(NAME_OF_DATASET$DependentVariable, NAME_OF_DATASET$IndependentVariable)
+
+```
+# Conditional Distributions
+
+Houses can use different types of heat. Let's see if there is different between the types of heat in newly constructed houses and not new constructed houses. 
+
+##Create a Segmented Bar Graph
+```{r stacked bar and two way table}
+heat_construction <-  NAME_OF_DATASET %>%
+                    ggplot(aes(x = CATEGORICAL_VARIABLE, fill = CATEGORICAL_VARIABLE)) +
+                    geom_bar(position = "fill")
+heat_construction
+```
+
+## Create a Two-Way Table
+```{r two way table}
+heattotals <- NAME_OF_DATASET %>%
+            group_by(New.Construct, CATEGORICAL_VARIABLE) %>%
+            summarize(num = n()) %>%
+            spread(New.Construct, num)
+heattotals
+```
+
+
+
+
