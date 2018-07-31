@@ -27,6 +27,9 @@ This code will allow you to see the variables and the first few observations. Th
 ```{r Viewing your data}
 head(diamonds)
 head(diamonds, 10)
+
+diamonds
+
 ```
 
 ## Using the Select Function

@@ -8,8 +8,15 @@ output: github_document
 ```{r load the tidyverse and skimr libraries, warning=FALSE}
 library(tidyverse)
 library(skimr)
+library(readr)
 ```
 
+#Download the Data
+
+```{r Download the data}
+zillow <- read_csv("https://raw.githubusercontent.com/jwadams25/LearningR/master/housingdata.csv")
+
+```
 ## Load The Data
 ```{r load the data}
 zillow <- read.csv("file:///Users/j.adams/projects/LearningR/housingdata.csv", stringsAsFactors=FALSE)
